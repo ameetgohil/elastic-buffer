@@ -51,4 +51,21 @@ module eb15 #(DWIDTH=32)
    assign en1 = state[1] & t_valid;
    assign sel = state[0];
 
+   logic[DWIDTH-1:0] data_r0, data_r1;
+
+   always @(posedge clk or negedge rstf) begin
+      if(~rstf) begin
+         data_r0 <= S0;
+         data_r1 <= 0;
+         q_state <= 0;
+      end
+      else begin
+         q_state <= n_state;
+         if(en0)
+           data_r0 <= t_data;
+         if(en1)
+           data_r1 <= t_data;
+      end // else: !if(~rstf)
+   end
+   
 endmodule
