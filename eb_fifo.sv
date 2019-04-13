@@ -10,8 +10,23 @@ module eb_fifo
     input wire                clk, rstf
     );
 
-   reg [DEPTHLOG2MO : 0]      status_cnt;
-   reg [DEPTHLOG2MO : 0]      q_rd_ptr;
+   localparam AWIDTH = $clog(DEPTH);
+
+   reg [DWIDTH-1:0]           mem[DEPTH-1:0];
+   reg [AWIDTH-1:0]           wr_ptr, rd_ptr;
+   reg                        ren, wen;
+   reg [AWIDTH-1:0]           status_cnt;
+   reg [AWIDTH-1:0]           q_rd_ptr;
+
+   always @(posedge clk)
+     if(ren && wen && (wr_ptr == rd_ptr))
+       data_r0 <= t_data;
+     else if(ren)
+       data_r0 <= mem[rd_ptr];
+
+   always @(posedge clk)
+     if(wen)
+       mem[wr_ptr] <= t_data;
 
    assign t_0_ack = !(status_cnt == DEPTHMO);
    assign ren = 1;
