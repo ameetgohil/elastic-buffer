@@ -53,6 +53,8 @@ module eb15 #(DWIDTH=32)
 
    logic[DWIDTH-1:0] data_r0, data_r1;
 
+   assign i_data = sel ? data_r1 : data_r0;
+
    always @(posedge clk or negedge rstf) begin
       if(~rstf) begin
          data_r0 <= 0;
