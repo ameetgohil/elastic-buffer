@@ -20,7 +20,7 @@ module eb1 #(DWIDTH=32)
       else begin
          if(dat_en)
            i_data <= t_data;
-         i_valid = ~t_ready | t_valid;
+         i_valid <= ~t_ready | t_valid;
       end
    end
    
