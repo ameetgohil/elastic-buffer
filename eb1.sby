@@ -1,0 +1,12 @@
+[options]
+mode prove
+
+[engines]
+smtbmc
+
+[script]
+read -formal eb1.sv
+prep -top eb1
+
+[files]
+eb1.sv
