@@ -5,7 +5,7 @@ mode prove
 smtbmc
 
 [script]
-read_verilog -sv eb1.sv
+read_verilog -formal eb1.sv
 prep -top eb1
 
 [files]
